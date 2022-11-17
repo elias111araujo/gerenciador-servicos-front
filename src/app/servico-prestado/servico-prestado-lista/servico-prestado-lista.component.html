@@ -1,0 +1,85 @@
+<h1 class="mt-4">Serviços Prestados </h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-active active">Consulta</li>
+</ol>
+<div class="container">
+    <div id="modalDelecao" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header cabecamodal">
+                    <h4>Instruções</h4>
+                </div>
+                <div class="modal-body">
+                Para buscar, escreva o nome do Cliente, e o mês que o Serviço foi prestado para esse cliente.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form #consultarForm ="ngForm" (submit)="consultar()">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="inputNome">Nome Cliente:</label>
+                <input placeholder="Uma parte do Nome, ou Nome completo" type="text" [(ngModel)]="nome" class="form-control"
+                name="nome" id="inputNome">
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputMes">Mês do Serviço:</label>
+                <select [(ngModel)]="mes" class="form-control" name="mes">
+                    <option value="">Selecione...</option>
+                    <option *ngFor="let mes of meses" [value]="mes">
+                        {{ mes }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary ">
+                    <i class="fa fa-search"></i> Consultar
+                </button>
+
+                <button type="button" class="btn btn-warning ml-3" routerLink="/servicos-prestados/form">
+                    <i class="fa fa-plus"></i> Novo
+                </button>
+
+                <button type="button" class="btn btn-light ml-3"
+                 data-toggle="modal" data-target="#modalDelecao" >
+                    <i class="fa fa-question"></i> Info
+                </button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <div class="row">
+        <div class="alert alert-warning" role="alert" *ngIf="message">
+            {{ message }}
+        </div>
+        <div class="col-md-12">
+            <table class="table">
+                <thead class="cabecamodal">
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let s of lista">
+                        <td>{{ s.cliente.nome }}</td>
+                        <td>{{ s.descricao }}</td>
+                        <td>{{ s.valor }}</td>
+                        <td>{{ s.data }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<h1 class="mt-4">Clientes</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-active active">Cadastro</li>
+</ol>
+<div class="container mb-3">
+    <div id="modalDelecao" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header cabecamodal">
+                    <h4>Instruções</h4>
+                </div>
+                <div class="modal-body">
+                Para cadastrarum Cliente, digite o Nome e o CPF. Atenção! Apenas CPFs validos são aceitos, use o site <a  target="_blank" href="https://www.4devs.com.br/gerador_de_cpf">Gerador de CPFs</a>, ou use este para teste: 06412370064.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form #clienteForm ="ngForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success==true">
+                    Cliente salvo/atualizado com sucesso!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="row" *ngIf="cliente.id">
+            <div class="col-md-6">
+                <div class="formgroup">
+                    <label>ID:</label>
+                    <input type="text" class="form-control" [ngModel]="cliente.id" name="id" disabled="true"/>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="formgroup">
+                    <label>Data Cadastro:</label>
+                    <input type="text" class="form-control" [ngModel]="cliente.dataCadastro" name="dataCdastro" disabled="true"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="formgroup">
+                    <label>Nome *:</label>
+                    <input type="text" placeholder="Nome" class="form-control" [(ngModel)]="cliente.nome" name="nome"/>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="formgroup">
+                    <label>Cpf *:</label>
+                    <input type="text" placeholder="Apenas CPF valido" class="form-control" [(ngModel)]="cliente.cpf" name="cpf"/>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-success"  *ngIf="!cliente.id">
+                    <i class="fa fa-save"></i> Salvar
+                </button>
+
+                <button type="submit" class="btn btn-success"  *ngIf="cliente.id">
+                    <i class="fa fa-sync-alt"></i> Salvar
+                </button>
+
+                <button type="button" class="btn btn-primary ml-2" (click)="voltarParaListagem()" >
+                    <i class="fa fa-arrow-left"></i> Voltar
+                </button>
+
+                <button type="button" class="btn btn-light ml-3"
+                 data-toggle="modal" data-target="#modalDelecao" >
+                    <i class="fa fa-question"></i> Info
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
